@@ -12,16 +12,18 @@ import java.util.concurrent.LinkedBlockingQueue;
 class Server implements Runnable {
 
     LinkedBlockingQueue<String> queue;
+    private int port;
 
-    Server(LinkedBlockingQueue<String> queue) {
+    Server(LinkedBlockingQueue<String> queue, int port) {
         this.queue = queue;
+        this.port = port;
     }
 
     @Override
     public void run() {
         try {
             ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
-            serverSocketChannel.bind(new InetSocketAddress(9002));
+            serverSocketChannel.bind(new InetSocketAddress(port));
             serverSocketChannel.configureBlocking(false);
 
             Boolean should_exit = false;
@@ -99,7 +101,7 @@ class HeatMesh {
         LinkedBlockingQueue<String> queue = new LinkedBlockingQueue<>();
 
         // Create and start the server
-        Server srv = new Server(queue);
+        Server srv = new Server(queue, 9002);
         Thread srv_thread = new Thread(srv);
         srv_thread.start();
 

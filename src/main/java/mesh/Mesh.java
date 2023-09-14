@@ -55,9 +55,10 @@ public class Mesh {
     }
 
     public void incrPoint(int x, int y, double value) {
-        if (x >= 0 && y >= 0 && x < width && y < height) {
-            this.mesh[x][y] = Math.min(this.mesh[x][y]+value, 1);
-        }
+        // if (x >= 0 && y >= 0 && x < width && y < height) {
+        //     this.mesh[x][y] = Math.min(this.mesh[x][y]+value, 1);
+        // }
+        this.mesh[x][y] = Math.min(this.mesh[x][y]+value, 1);
     }
 
 }
