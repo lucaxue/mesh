@@ -162,12 +162,12 @@ public class Main {
                 mesh = new Mesh(stagingMesh);
             }
 
-            try {
-                clientLeft.close();
-                clientRight.close();
-                clientAbove.close();
-                clientBelow.close();
-            }
+            
+            clientLeft.close();
+            clientRight.close();
+            clientAbove.close();
+            clientBelow.close();
+            
 
             long endTime = System.currentTimeMillis();
             System.out.println("Time: " + (endTime - startTime) + "ms");
