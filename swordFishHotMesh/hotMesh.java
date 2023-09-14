@@ -74,15 +74,10 @@ class hotMeshCommunicator {
     int port;
     String host;
     LinkedBlockingQueue<String> queue;
-    Server srv;
     Client cli;
 
     private void start(int port, String host){
         queue = new LinkedBlockingQueue<>();
-
-        srv = new Server(queue, port);
-        Thread srv_thread = new Thread(srv);
-        srv_thread.start();
 
         cli = new Client(host, port);
         while (cli.connection == null) {
