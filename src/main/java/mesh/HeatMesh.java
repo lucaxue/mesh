@@ -62,9 +62,18 @@ class Client {
     Socket connection;
     PrintWriter out;
 
+    private String IP;
+    private int port;
+
+    public Client(String IP, int port) {
+        this.IP = IP;
+        this.port = port;
+        this.connect();
+    }
+
     public void connect() {
         try {
-            connection = new Socket("137.205.113.36", 9002);
+            connection = new Socket(this.IP, this.port);
             out = new PrintWriter(connection.getOutputStream());
         } catch (Exception e) {}
     }
@@ -95,7 +104,7 @@ class HeatMesh {
         srv_thread.start();
 
         // Create and connect the client
-        Client cli = new Client();
+        Client cli = new Client("137.205.113.37", 9002);
         while (cli.connection == null) {
             cli.connect();
         }
