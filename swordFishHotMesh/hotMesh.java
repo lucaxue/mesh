@@ -25,10 +25,23 @@ public class hotMesh {
         hotMeshCommunicator right = null;
         hotMeshCommunicator down = null;
         hotMeshCommunicator left = null;
-        if (!neighbours[0].equals("N")) {up = new hotMeshCommunicator(Integer.parseInt(neighbours[1]), neighbours[0]);}
-        if (!neighbours[2].equals("N")) {right = new hotMeshCommunicator(Integer.parseInt(neighbours[3]), neighbours[2]);}
-        if (!neighbours[4].equals("N")) {down = new hotMeshCommunicator(Integer.parseInt(neighbours[5]), neighbours[4]);}
-        if (!neighbours[6].equals("N")) {left = new hotMeshCommunicator(Integer.parseInt(neighbours[7]), neighbours[6]);}
+
+        if (!neighbours[0].equals("N")) {
+            up = new hotMeshCommunicator(Integer.parseInt(neighbours[1]), neighbours[0]);
+            System.out.println(up);
+        }
+        if (!neighbours[2].equals("N")) {
+            right = new hotMeshCommunicator(Integer.parseInt(neighbours[3]), neighbours[2]);
+            System.out.println(right);
+        }
+        if (!neighbours[4].equals("N")) {
+            down = new hotMeshCommunicator(Integer.parseInt(neighbours[5]), neighbours[4]);
+            System.out.println(down);
+        }
+        if (!neighbours[6].equals("N")) {
+            left = new hotMeshCommunicator(Integer.parseInt(neighbours[7]), neighbours[6]);
+            System.out.println(left);
+        }
 
         while (true){
             Thread.sleep(4000);
