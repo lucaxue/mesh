@@ -1,6 +1,6 @@
 package mesh.src.main.java.mesh.gui;
 
-import mesh.src.main.java.mesh.HeatMap;
+import mesh.src.main.java.mesh.gui.HeatMap;
 import javax.swing.*;
 import java.awt.*;
 

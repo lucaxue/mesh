@@ -11,16 +11,18 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class Server implements Runnable {
 
     private LinkedBlockingQueue<String> queue;
+    private int port;
 
-    public Server(LinkedBlockingQueue<String> queue) {
+    public Server(LinkedBlockingQueue<String> queue, int port) {
         this.queue = queue;
+        this.port = port;
     }
 
     @Override
     public void run() {
         try {
             ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
-            serverSocketChannel.bind(new InetSocketAddress(9002));
+            serverSocketChannel.bind(new InetSocketAddress(port));
             serverSocketChannel.configureBlocking(false);
 
             Boolean should_exit = false;

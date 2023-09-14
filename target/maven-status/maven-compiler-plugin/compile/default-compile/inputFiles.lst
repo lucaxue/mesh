@@ -1,9 +1,7 @@
-/dcs/22/u5545728/cs1d5/mesh/src/main/java/mesh/HeatMap.java
-/dcs/22/u5545728/cs1d5/mesh/src/main/java/mesh/HeatMesh.java
-/dcs/22/u5545728/cs1d5/mesh/src/main/java/mesh/Mesh.java
-/dcs/22/u5545728/cs1d5/mesh/src/main/java/mesh/Main.java
-/dcs/22/u5545728/cs1d5/mesh/src/main/java/mesh/connection/Server.java
-/dcs/22/u5545728/cs1d5/mesh/src/main/java/mesh/gui/HeatMapFrame.java
-/dcs/22/u5545728/cs1d5/mesh/src/main/java/mesh/gui/HeatMap.java
-/dcs/22/u5545728/cs1d5/mesh/src/main/java/mesh/gui/Gradient.java
-/dcs/22/u5545728/cs1d5/mesh/src/main/java/mesh/connection/Client.java
+/Users/luca/Documents/CS-modules/CS1D5/cs1d5/mesh/mesh/src/main/java/mesh/connection/Server.java
+/Users/luca/Documents/CS-modules/CS1D5/cs1d5/mesh/mesh/src/main/java/mesh/gui/HeatMap.java
+/Users/luca/Documents/CS-modules/CS1D5/cs1d5/mesh/mesh/src/main/java/mesh/gui/Gradient.java
+/Users/luca/Documents/CS-modules/CS1D5/cs1d5/mesh/mesh/src/main/java/mesh/Main.java
+/Users/luca/Documents/CS-modules/CS1D5/cs1d5/mesh/mesh/src/main/java/mesh/gui/HeatMapFrame.java
+/Users/luca/Documents/CS-modules/CS1D5/cs1d5/mesh/mesh/src/main/java/mesh/connection/Client.java
+/Users/luca/Documents/CS-modules/CS1D5/cs1d5/mesh/mesh/src/main/java/mesh/Mesh.java

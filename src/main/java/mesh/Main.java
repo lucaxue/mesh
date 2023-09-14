@@ -1,15 +1,13 @@
 package mesh.src.main.java.mesh;
 
 import mesh.src.main.java.mesh.gui.*;
-
+import mesh.src.main.java.mesh.connection.*;
 import java.util.concurrent.LinkedBlockingQueue;
-
 import java.io.*;
 import java.util.concurrent.*;
 import java.lang.Exception;
 import java.util.ArrayList;
 import java.util.List;
-// import java.String.split;
 
 public class Main {
 
@@ -48,61 +46,29 @@ public class Main {
             // Client clientAbove = new Client(IPAbove, portAbove);
             // Client clientBelow = new Client(IPBelow, portBelow);
 
+            // MACHINE TO LEFT
             if (meshLocation[0] > 0) {
-                // MACHINE TO LEFT
-
-                // Create and start the server
                 Server serverLeft = new Server(queueLeft, portLeft);
-                Thread srv_thread = new Thread(serverLeft);
-                srv_thread.start();
-                // Create and connect the client
-                clientLeft = new Client(IPLeft, portLeft);
-                while (clientLeft.connection == null) {
-                    clientLeft.connect();
-                }
-
+                new Thread(serverLeft).start();
+                clientLeft.connect();
             }
+            // MACHINE TO RIGHT
             if (meshLocation[0] < meshBounds[0]) {
-                // MACHINE TO RIGHT
-
-                // Create and start the server
                 Server serverRight = new Server(queueRight, portRight);
-                Thread srv_thread = new Thread(serverRight);
-                srv_thread.start();
-                // Create and connect the client
-                clientRight = new Client(IPRight, portRight);
-                while (clientRight.connection == null) {
-                    clientRight.connect();
-                }
-
+                new Thread(serverRight).start();
+                clientRight.connect();
             }
+            // // MACHINE ABOVE
             // if (meshLocation[1] > 0) {
-            //     // MACHINE ABOVE
-
-            //     // Create and start the server
             //     Server serverAbove = new Server(queueAbove, portAbove);
-            //     Thread srv_thread = new Thread(serverAbove);
-            //     srv_thread.start();
-            //     // Create and connect the client
-            //     clientAbove = new Client(IPAbove, portAbove);
-            //     while (clientAbove.connection == null) {
-            //         clientAbove.connect();
-            //     }
+            //     new Thread(serverAbove).start();
+            //     clientAbove.connect();
             // }
+            // // MACHINE BELOW
             // if (meshLocation[1] < meshBounds[1]) {
-            //     // MACHINE BELOW
-
-            //     // Create and start the server
             //     Server serverBelow = new Server(queueBelow, portBelow);
-            //     Thread srv_thread = new while (queueLeft.size() > 0) {
-                // }Thread(serverBelow);
-            //     srv_thread.start();
-            //     // Create and connect the client
-            //     clientBelow = new Client(IPBelow, portBelow);
-            //     while (clientBelo  // while (queueRight.size() > 0) {
-            //         clientBelow.connect();
-            //     }
-
+            //     new Thread(serverBelow).start();
+            //     clientBelow.connect();
             // }
 
             // mesh.setPoint(200, 200, 1);
@@ -110,7 +76,6 @@ public class Main {
                 mesh.setPoint(Integer.parseInt(args[9]), Integer.parseInt(args[10]), Integer.parseInt(args[11]));
             }
 
-            // Synchronously
             long startTime = System.currentTimeMillis();
 
             for (int ts = 0; ts < timesteps; ts++) {
@@ -124,14 +89,14 @@ public class Main {
                             incrValue *= 0.05;
                             if (y > 0) {
                                 stagingMesh.incrPoint(x, y-1, incrValue);
-                            } 
+                            }
                             //else if (meshLocation[1] > 0) {
                                 // ABOVE MESH
                                 //clientAbove.send(x+"|"+incrValue);
                             //}
                             if (y < height-1) {
                                 stagingMesh.incrPoint(x, y+1, incrValue);
-                            } 
+                            }
                             //else if (meshLocation[1] < meshBounds[1]) {
                                 // BELOW MESH
                                 //clientBelow.send(x+"|"+incrValue);
@@ -155,24 +120,24 @@ public class Main {
                 }
 
                 while (queueLeft.size() > 0) {
-                    String[] queueitem = queueLeft.take().split("\\|");
-                    System.out.println("Process:"+queueitem[0]+"|"+queueitem[1]);
-                    stagingMesh.incrPoint(width-1, Integer.parseInt(queueitem[0]), Double.parseDouble(queueitem[1]));
+                    String[] queueItem = queueLeft.take().split("\\|");
+                    System.out.println("Process:"+queueItem[0]+"|"+queueItem[1]);
+                    stagingMesh.incrPoint(width-1, Integer.parseInt(queueItem[0]), Double.parseDouble(queueItem[1]));
                 }
                 while (queueRight.size() > 0) {
-                    String[] queueitem = queueRight.take().split("\\|");
-                    System.out.println("Process:"+queueitem[0]+"|"+queueitem[1]);
-                    stagingMesh.incrPoint(0, Integer.parseInt(queueitem[0]), Double.parseDouble(queueitem[1]));
+                    String[] queueItem = queueRight.take().split("\\|");
+                    System.out.println("Process:"+queueItem[0]+"|"+queueItem[1]);
+                    stagingMesh.incrPoint(0, Integer.parseInt(queueItem[0]), Double.parseDouble(queueItem[1]));
                 }
                 // while (queueAbove.size() > 0) {
-                //     String[] queueitem = queueAbove.take().split("\\|");
-                //     stagingMesh.incrPoint(Integer.parseInt(queueitem[0]), 0, Double.parseDouble(queueitem[1]));
+                //     String[] queueItem = queueAbove.take().split("\\|");
+                //     stagingMesh.incrPoint(Integer.parseInt(queueItem[0]), 0, Double.parseDouble(queueItem[1]));
                 // }
                 // while (queueBelow.size() > 0) {
-                //     String[] queueitem = queueBelow.take().split("\\|");
-                //     stagingMesh.incrPoint(Integer.parseInt(queueitem[0]), height-1, Double.parseDouble(queueitem[1]));
+                //     String[] queueItem = queueBelow.take().split("\\|");
+                //     stagingMesh.incrPoint(Integer.parseInt(queueItem[0]), height-1, Double.parseDouble(queueItem[1]));
                 // }
-                
+
                 mesh = new Mesh(stagingMesh);
             }
 
@@ -201,7 +166,6 @@ public class Main {
             // } catch (Exception e) {
             //     e.printStackTrace();
             // }
-            
 
             long endTime = System.currentTimeMillis();
             System.out.println("Time: " + (endTime - startTime) + "ms");
@@ -221,7 +185,6 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
 }

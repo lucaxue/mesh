@@ -11,12 +11,18 @@ public class Client {
     private String IP;
     private int port;
 
-    public void connect(String IP, int port) {
+    public Client(String IP, int port) {
+        this.IP = IP;
+        this.port = port;
+        connect();
+    }
+
+    public void connect() {
         try {
             connection = new Socket(IP, port);
             out = new PrintWriter(connection.getOutputStream());
         } catch (Exception e) {
-            connect(IP, port);
+            connect();
         }
     }
 
@@ -24,7 +30,9 @@ public class Client {
         try {
             connection.close();
             out.close();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void send(String data){
