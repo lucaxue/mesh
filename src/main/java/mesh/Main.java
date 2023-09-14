@@ -45,7 +45,7 @@ public class Main {
             Client clientRight = new Client(IPRight, portRight);
             Client clientAbove = new Client(IPAbove, portAbove);
             Client clientBelow = new Client(IPBelow, portBelow);
-    
+
             if (meshLocation[0] > 0) {
                 // MACHINE TO LEFT
 
@@ -147,30 +147,22 @@ public class Main {
                         }
                     }
                 }
-                // while (queueLeft.size() > 0) {
-                //     String[] queueitem = queueLeft.take().split("|");
-                //     // System.out.println("Q Left");
-                //     // for (String string : queueitem) {
-                //     //     System.out.println(string);
-                //     // }
-                //     stagingMesh.incrPoint(width-1, Integer.parseInt(queueitem[0]), Double.parseDouble(queueitem[1]));
-                // }
-                // while (queueRight.size() > 0) {
-                //     String[] queueitem = queueRight.take().split("|");
-                //     // System.out.println("Q Right");
-                //     // for (String string : queueitem) {
-                //     //     System.out.println(string);
-                //     // }
-                //     stagingMesh.incrPoint(0, Integer.parseInt(queueitem[0]), Double.parseDouble(queueitem[1]));
-                // }
-                // while (queueAbove.size() > 0) {
-                //     String[] queueitem = queueAbove.take().split("|");
-                //     stagingMesh.incrPoint(Integer.parseInt(queueitem[0]), 0, Double.parseDouble(queueitem[1]));
-                // }
-                // while (queueBelow.size() > 0) {
-                //     String[] queueitem = queueBelow.take().split("|");
-                //     stagingMesh.incrPoint(Integer.parseInt(queueitem[0]), height-1, Double.parseDouble(queueitem[1]));
-                // }
+                while (queueLeft.size() > 0) {
+                    String[] queueitem = queueLeft.take().split("\\|");
+                    stagingMesh.incrPoint(width-1, Integer.parseInt(queueitem[0]), Double.parseDouble(queueitem[1]));
+                }
+                while (queueRight.size() > 0) {
+                    String[] queueitem = queueRight.take().split("\\|");
+                    stagingMesh.incrPoint(0, Integer.parseInt(queueitem[0]), Double.parseDouble(queueitem[1]));
+                }
+                while (queueAbove.size() > 0) {
+                    String[] queueitem = queueAbove.take().split("\\|");
+                    stagingMesh.incrPoint(Integer.parseInt(queueitem[0]), 0, Double.parseDouble(queueitem[1]));
+                }
+                while (queueBelow.size() > 0) {
+                    String[] queueitem = queueBelow.take().split("\\|");
+                    stagingMesh.incrPoint(Integer.parseInt(queueitem[0]), height-1, Double.parseDouble(queueitem[1]));
+                }
                 mesh = new Mesh(stagingMesh);
             }
 
@@ -188,12 +180,12 @@ public class Main {
             // outFile.close();
             // HeatMapFrame heatMap = new HeatMapFrame(heatMapArray);
             // heatMap.createGUIForArray();
-        
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        
+
     }
 
 }
