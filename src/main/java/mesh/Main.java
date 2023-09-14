@@ -15,7 +15,7 @@ public class Main {
 
         try {
 
-            int width = 1000;
+            int width = 500;
             int height = 1000;
             int timesteps = 2000;
             int maxValue = 1;
@@ -23,15 +23,15 @@ public class Main {
             int[] meshLocation = {Integer.parseInt(args[0]), Integer.parseInt(args[1])};
             int[] meshBounds = {Integer.parseInt(args[2]), Integer.parseInt(args[3])};
 
-            String IPLeft = "137.205.113.37";
-            String IPRight = "137.205.113.37";
-            String IPAbove = "137.205.113.37";
-            String IPBelow = "137.205.113.37";
+            String IPLeft = args[4].split("\\:")[0];
+            String IPRight = args[5].split("\\:")[0];
+            String IPAbove = args[6].split("\\:")[0];
+            String IPBelow = args[7].split("\\:")[0];
 
-            int portLeft = 9002;
-            int portRight = 9003;
-            int portAbove = 9004;
-            int portBelow = 9005;
+            int portLeft = Integer.parseint(args[4].split("\\:")[1]);
+            int portRight = Integer.parseint(args[5].split("\\:")[1]);
+            int portAbove = Integer.parseint(args[6].split("\\:")[1]);
+            int portBelow = Integer.parseint(args[7].split("\\:")[1]);
 
             Mesh mesh = new Mesh(width, height, maxValue);
 
@@ -120,28 +120,24 @@ public class Main {
                                 stagingMesh.incrPoint(x, y-1, incrValue);
                             } else if (meshLocation[1] > 0) {
                                 // ABOVE MESH
-                                System.out.println(x+"|"+incrValue);
                                 clientAbove.send(x+"|"+incrValue);
                             }
                             if (y < height-1) {
                                 stagingMesh.incrPoint(x, y+1, incrValue);
                             } else if (meshLocation[1] < meshBounds[1]) {
                                 // BELOW MESH
-                                System.out.println(x+"|"+incrValue);
                                 clientBelow.send(x+"|"+incrValue);
                             }
                             if (x > 0) {
                                 stagingMesh.incrPoint(x-1, y, incrValue);
                             } else if (meshLocation[0] > 0) {
                                 // LEFT OF MESH
-                                System.out.println(x+"|"+incrValue);
                                 clientLeft.send(y+"|"+incrValue);
                             }
                             if (x < width-1) {
                                 stagingMesh.incrPoint(x+1, y, incrValue);
                             } else if (meshLocation[0] < meshBounds[0]) {
                                 // RIGHT OF MESH
-                                System.out.println(x+"|"+incrValue);
                                 clientRight.send(y+"|"+incrValue);
                             }
                         }
