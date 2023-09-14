@@ -17,7 +17,7 @@ public class hotMesh {
         x_location = Integer.parseInt(locations[0]);
         y_location = Integer.parseInt(locations[1]);
         System.out.println("Recieved location " + x_location + "," + y_location + ". Waiting for neighbour information");
-        
+
         String neighbour = hotMatchNearYou.read();
         String[] neighbours = neighbour.split(",");
 
@@ -29,8 +29,8 @@ public class hotMesh {
         if (!neighbours[2].equals("N")) {right = new hotMeshCommunicator(Integer.parseInt(neighbours[3]), neighbours[2]);}
         if (!neighbours[4].equals("N")) {down = new hotMeshCommunicator(Integer.parseInt(neighbours[5]), neighbours[4]);}
         if (!neighbours[6].equals("N")) {left = new hotMeshCommunicator(Integer.parseInt(neighbours[7]), neighbours[6]);}
-    
-        while (true){                
+
+        while (true){
             Thread.sleep(4000);
             if(up != null){
                 up.send("Hello cell above me :)");
@@ -43,11 +43,11 @@ public class hotMesh {
             if(down != null){
                 down.send("Hello cell below me :)");
                 System.out.println("down read: " + down.read());
-            }  
+            }
             if(left != null){
                 left.send("Hello cell to my left :)");
                 System.out.println("left read: " + left.read());
-            }  
+            }
         }
     }
 }
@@ -119,7 +119,9 @@ class Client {
             connection = new Socket(host, port);
             out = new PrintWriter(connection.getOutputStream());
             in = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public String read() throws IOException {
@@ -139,12 +141,14 @@ class Client {
         try {
             connection.close();
             out.close();
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void send(String data){
         System.out.println("writing: " + data);
-        //out.println(data);
+        out.println(data);
         out.flush();
     }
 }
