@@ -22,7 +22,7 @@ public class Client {
             connection = new Socket(IP, port);
             out = new PrintWriter(connection.getOutputStream());
         } catch (Exception e) {
-            connect();
+            //connect();
         }
     }
 
@@ -38,5 +38,9 @@ public class Client {
     public void send(String data){
         out.println(data);
         out.flush();
+    }
+
+    public Socket getConnection() {
+        return this.connection;
     }
 }

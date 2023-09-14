@@ -50,13 +50,17 @@ public class Main {
             if (meshLocation[0] > 0) {
                 Server serverLeft = new Server(queueLeft, portLeft);
                 new Thread(serverLeft).start();
-                clientLeft.connect();
+                while (clientLeft.getConnection() == null) {
+                    clientLeft.connect();
+                }
             }
             // MACHINE TO RIGHT
             if (meshLocation[0] < meshBounds[0]) {
                 Server serverRight = new Server(queueRight, portRight);
                 new Thread(serverRight).start();
-                clientRight.connect();
+                while (clientRight.getConnection() == null) {
+                    clientRight.connect();
+                }
             }
             // // MACHINE ABOVE
             // if (meshLocation[1] > 0) {
@@ -106,29 +110,41 @@ public class Main {
                             } else if (meshLocation[0] > 0) {
                                 // LEFT OF MESH
                                 clientLeft.send(y+"|"+incrValue);
-                                System.out.println("Send:"+y+"|"+incrValue);
+                                // System.out.println("Send:"+y+"|"+incrValue);
                             }
                             if (x < width-1) {
                                 stagingMesh.incrPoint(x+1, y, incrValue);
                             } else if (meshLocation[0] < meshBounds[0]) {
                                 // RIGHT OF MESH
                                 clientRight.send(y+"|"+incrValue);
-                                System.out.println("Send:"+y+"|"+incrValue);
+                                // System.out.println("Send:"+y+"|"+incrValue);
                             }
                         }
                     }
                 }
 
-                while (queueLeft.size() > 0) {
-                    String[] queueItem = queueLeft.take().split("\\|");
-                    System.out.println("Process:"+queueItem[0]+"|"+queueItem[1]);
-                    stagingMesh.incrPoint(width-1, Integer.parseInt(queueItem[0]), Double.parseDouble(queueItem[1]));
+                String queuetake;
+                if (meshLocation[0] > 0) {
+                    clientLeft.send("exit"+ts);
+                    do {
+                        queuetake = queueLeft.take();
+                        if (!queuetake.equals("exit"+ts)) {
+                            String[] queueitem = queuetake.split("\\|");
+                            stagingMesh.incrPoint(0, Integer.parseInt(queueitem[0]), Double.parseDouble(queueitem[1]));
+                        }
+                    } while (!queuetake.equals("exit"+ts));
                 }
-                while (queueRight.size() > 0) {
-                    String[] queueItem = queueRight.take().split("\\|");
-                    System.out.println("Process:"+queueItem[0]+"|"+queueItem[1]);
-                    stagingMesh.incrPoint(0, Integer.parseInt(queueItem[0]), Double.parseDouble(queueItem[1]));
+                if (meshLocation[0] < meshBounds[0]) {
+                    clientRight.send("exit"+ts);
+                    do {
+                        queuetake = queueRight.take();
+                        if (!queuetake.equals("exit"+ts)) {
+                            String[] queueitem = queuetake.split("\\|");
+                            stagingMesh.incrPoint(width-1, Integer.parseInt(queueitem[0]), Double.parseDouble(queueitem[1]));
+                        }
+                    } while (!queuetake.equals("exit"+ts));
                 }
+
                 // while (queueAbove.size() > 0) {
                 //     String[] queueItem = queueAbove.take().split("\\|");
                 //     stagingMesh.incrPoint(Integer.parseInt(queueItem[0]), 0, Double.parseDouble(queueItem[1]));
@@ -152,8 +168,12 @@ public class Main {
             //     e.printStackTrace();
             // }
 
-            clientLeft.close();
-            clientRight.close();
+            if (meshLocation[0] > 0) {
+                clientLeft.close();
+            }
+            if (meshLocation[0] < meshBounds[0]) {
+                clientRight.close();
+            }
             // clientAbove.close();
             // clientBelow.close();
             // try {
