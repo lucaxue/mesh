@@ -28,10 +28,10 @@ public class Main {
             String IPAbove = args[6].split("\\:")[0];
             String IPBelow = args[7].split("\\:")[0];
 
-            int portLeft = Integer.parseint(args[4].split("\\:")[1]);
-            int portRight = Integer.parseint(args[5].split("\\:")[1]);
-            int portAbove = Integer.parseint(args[6].split("\\:")[1]);
-            int portBelow = Integer.parseint(args[7].split("\\:")[1]);
+            int portLeft = Integer.parseInt(args[4].split("\\:")[1]);
+            int portRight = Integer.parseInt(args[5].split("\\:")[1]);
+            int portAbove = Integer.parseInt(args[6].split("\\:")[1]);
+            int portBelow = Integer.parseInt(args[7].split("\\:")[1]);
 
             Mesh mesh = new Mesh(width, height, maxValue);
 
