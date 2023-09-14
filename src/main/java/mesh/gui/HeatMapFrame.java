@@ -4,7 +4,7 @@ import mesh.src.main.java.mesh.HeatMap;
 import javax.swing.*;
 import java.awt.*;
 
-class HeatMapFrame extends JFrame
+public class HeatMapFrame extends JFrame
 {
     HeatMap panel;
 
